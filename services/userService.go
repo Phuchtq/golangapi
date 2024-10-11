@@ -80,7 +80,7 @@ func (tr *userService) GetUserById(id string) (*dbo.User, error) {
 	return tr.userRepo.GetUserById(id)
 }
 
-func (tr userService) AddUser(u spModels.SignUpModel, actorId string) (error, string) {
+func (tr *userService) AddUser(u spModels.SignUpModel, actorId string) (error, string) {
 	// Fake userId -> stop the process
 	var actor *dbo.User
 	var err error
@@ -395,7 +395,7 @@ func (tr *userService) UpdateUser(user spModels.UserNormalModel, actorId string)
 	return "Success", nil
 }
 
-func (tr userService) VerifyAction(rawToken string) (error, string) {
+func (tr *userService) VerifyAction(rawToken string) (error, string) {
 	var cmp []string = strings.Split(rawToken, ":")
 	//---------------------------------------
 	if len(cmp) < 3 {
@@ -443,7 +443,7 @@ func (tr userService) VerifyAction(rawToken string) (error, string) {
 	return nil, response
 }
 
-func (tr userService) VerifyResetPassword(newPass string, re_newPass string, token string) (string, error) {
+func (tr *userService) VerifyResetPassword(newPass string, re_newPass string, token string) (string, error) {
 	var user dbo.User
 	err := utils.VerifyActionToken(token, &user, &tr.userRepo)
 	if err != nil {
@@ -478,7 +478,7 @@ func (tr userService) VerifyResetPassword(newPass string, re_newPass string, tok
 	return "", tr.userRepo.UpdateUser(user)
 }
 
-func (tr userService) RecoverAccountByCustomer(email string) (string, error) {
+func (tr *userService) RecoverAccountByCustomer(email string) (string, error) {
 	email = strings.TrimSpace(strings.ToLower(email))
 	user, err := tr.userRepo.GetUserByEmail(email)
 	//------------------------------------
@@ -532,7 +532,7 @@ func (tr userService) RecoverAccountByCustomer(email string) (string, error) {
 	return notis.RecoverAccountMsg, nil
 }
 
-func (tr userService) ChangeUserStatus(rawStatus string, userId string, actorId string) (error, string) {
+func (tr *userService) ChangeUserStatus(rawStatus string, userId string, actorId string) (error, string) {
 	var user dbo.User
 	var actor dbo.User
 	if err := utils.VerifyActorAndObject(actorId, userId, &actor, &user, &tr.userRepo); err != nil {
@@ -574,7 +574,7 @@ func (tr userService) ChangeUserStatus(rawStatus string, userId string, actorId 
 	return nil, ""
 }
 
-func (tr userService) LogOut(userId string) error {
+func (tr *userService) LogOut(userId string) error {
 	user, err := tr.userRepo.GetUserById(userId)
 	if err != nil {
 		return err
