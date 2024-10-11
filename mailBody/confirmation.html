@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initual-scale=1.0">
+
+</head>
+<style>
+    table,
+    td {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+</style>
+
+<body>
+    <p>Dear {{ .Email }}</p>
+    <p>Thank you for registering an account. Please click the link below to activate your account:</p>
+    <p><a href="{{ .Url }}">HERE</a></p>
+    <table>
+        <tr>
+            <td>Email</td>
+            <td>{{ .Email }}</td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>{{ .Password }}</td>
+        </tr>
+    </table>
+</body>
+
+</html>
