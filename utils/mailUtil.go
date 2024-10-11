@@ -11,8 +11,8 @@ import (
 	"gopkg.in/mail.v2"
 )
 
-var orgEmail string = "externalauthdemo1234@gmail.com"
-var securityPass string = "iydb znrz nkgl ibdy"
+var orgEmail string = "your_email"
+var securityPass string = "your_app_password"
 var host string = "smtp.gmail.com"
 var port int = 587
 
